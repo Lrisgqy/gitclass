@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>留言板</title>
+		<style type="text/css">
+			#wrap{
+				width: 500px;
+				height: 500px;
+				margin: 0px auto;
+			}
+			.conter{
+				width: 483px;
+				height: 100px;
+				border: 1px solid #999;
+				padding: 0px 8px;
+				overflow:auto;
+			}
+			.conter>p{
+				background: #f0f0f0;
+			}
+			textarea{
+				width: 496px;
+				height:150px;
+				margin-top: 10px;
+			}
+			input{
+				width: 502px;
+				height:40px;
+			}
+			hr{
+				margin-top: -12px;
+			}
+			.sp1{
+				float: right;
+				color:darkred ;
+				cursor: pointer;
+				display: none;
+			}
+			.sp2{
+				float: right;
+				margin-right: 10px;
+				color: darkblue;
+				cursor: pointer;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<h3>留言内容</h3>
+			<hr />
+			<div class="conter">
+				
+			</div>
+			<textarea  name="" rows="" cols=""></textarea>
+			<input type="button" name="" id="" value="发表留言" />
+		</div>
+		
+		<script type="text/javascript">
+			var btn = document.getElementsByTagName('input')[0];
+			var xs = document.getElementsByClassName('conter')[0];
+			var sr = document.getElementsByTagName('textarea')[0];
+			var num =0;
+			btn.onclick = function(){
+				if(sr.value!=''){
+					num++;
+					var p = document.createElement('p');
+					p.innerHTML ='<span class="xuhao">'+num+'</span>' +'.'+sr.value+'<span class = "sp1">确定删除</span>'+'<span class = "sp2">'+"第"+num+"条"+'</span>'
+					xs.appendChild(p);
+
+					var ps = document.getElementsByTagName('p');
+					var sp1 = document.getElementsByClassName('sp1');
+					var sp2 = document.getElementsByClassName('sp2');
+					for(var i =0;i<ps.length;i++){
+						ps[i].index = i;
+						ps[i].onmouseenter = function(){
+							sp1[this.index].style.display = "block";
+							sp2[this.index].style.display = "block";
+						}
+						ps[i].onmouseleave = function(){
+							sp1[this.index].style.display = "none";
+							sp2[this.index].style.display = "none";
+						}
+						
+						sp1[i].onclick = function(){
+							xs.removeChild(this.parentNode)
+							var ps = document.getElementsByTagName('p');
+							var xuhao = document.getElementsByClassName('xuhao');
+							var sp2 = document.getElementsByClassName('sp2');
+							for(var i =0;i<ps.length;i++){
+								ps[i].index = i;
+								ps[i].onmouseenter = function(){
+									sp1[this.index].style.display = "block";
+									sp2[this.index].style.display = "block";
+								}
+								ps[i].onmouseleave = function(){
+									sp1[this.index].style.display = "none";
+									sp2[this.index].style.display = "none";
+								}
+								xuhao[i].innerHTML = i+1;
+								sp2[i].innerHTML = "第"+(i+1)+"条";
+							}
+							var ps = document.getElementsByTagName('p');
+							num = ps.length;		
+						}
+						
+					}
+				
+				}else{
+					alert("请留言!")
+					num = ps.length;
+				}
+				sr.value= '';
+			}
+		</script>
+		
+	</body>
+</html>
